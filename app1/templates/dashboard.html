@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<!-- Including the bootstrap CDN -->
+	<link rel="stylesheet" href=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+	</script>
+	<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
+	</script>
+	<script src=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
+	</script>
+
+	<style>
+		body{
+			
+			background-image: linear-gradient(45deg, #EC9F05, #FF4E00);
+		}
+		
+		.container-md
+		{
+			background-image: linear-gradient(45deg, #DECBA4, #3E5151);
+			margin-top: 40px;
+			margin-bottom : 40px;
+			width: 900px;
+			height: 400px;
+			{% comment %} position:absolute; {% endcomment %}
+			top: 120px;
+			left: 200px;
+			border-radius: 20px ;
+
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Creating a navigation bar using the
+		.navbar class of bootstrap -->
+	<nav class="navbar navbar-expand-sm bg-dark">
+        <a class="navbar-brand text-light px-5 py-3" href="{% url 'home' %}"><strong>Navbar</strong></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+		<ul class="navbar-nav ml-auto px-5">
+			{% comment %} <li class="nav-item px-3 ">
+				<a class="nav-link text-light" href="">
+				View Certificates
+				</a>
+			</li> {% endcomment %}
+			<li class="nav-item px-3">
+				<a class="nav-link text-light" href="/upload/">
+				Upload file
+				</a>
+			</li>
+			<li class="nav-item px-3">
+				<a class="nav-link text-light" href="{% url 'logout' %}">
+				Logout
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+  	<div class="container-md">
+		<br>
+		<br>
+		<center><h1>NAME : {{ user.username }}</h1></center> 
+		<br>
+		<br>
+			<center><h1>Roll: {{ user.first_name }}</h1></center> 
+		<br>
+		<br>
+			<center><h1>Points: {{ points }}</h1></center>
+	
+	</div>
+	{% comment %} <div class="container"> 
+		
+		<span class="row">
+			{% for ip in ips %}		
+			<div class="w-100"></div>
+			<span class="col">
+				<span class="card" style="width: 18rem;">
+					<img class="card-img-top" src="/media/{{ ip.file }}" alt="Card image cap">
+					<span class="card-body">
+						<p class="card-text">Activity points : {{ ip.points }}</p>
+					</span>
+				</span>
+				{% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+				{% endfor %}
+			</span>
+			
+			
+		</span>
+	</div>
+	{% endcomment %}
+	<div class="container">
+		<div class="row">
+		{% for ip in ips %}	
+		  <div class="col">
+			<span class="card" style="width: 18rem;">
+				<img class="card-img-top" src="/media/{{ ip.file }}" alt="Card image cap">
+				<span class="card-body">
+					<p class="card-text">Activity points : {{ ip.points }}</p>
+				</span>
+			</span>
+		  </div>	  
+		  {% if forloop.counter|divisibleby:3 %}<div class="w-100 py-5"></div>{% endif %}
+		{% endfor %}  
+		</div>
+	</div>
+</body>
+
+</html>
